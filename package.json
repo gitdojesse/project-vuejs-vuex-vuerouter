@@ -56,6 +56,10 @@
       ],
       "comma-dangle": [
         "off"
+      ],
+      "space-before-function-paren": [
+        "error",
+        "never"
       ]
     }
   },
