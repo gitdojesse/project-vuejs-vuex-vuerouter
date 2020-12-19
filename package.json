@@ -58,8 +58,16 @@
         "off"
       ],
       "space-before-function-paren": [
-        "error",
-        "never"
+        "off"
+      ],
+      "dot-notation": [
+        "off"
+      ],
+      "no-async-promise-executor": [
+        "off"
+      ],
+      "eqeqeq": [
+        "off"
       ]
     }
   },
