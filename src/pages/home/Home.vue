@@ -5,10 +5,16 @@
       <p>Bem vindo ao Séries Wished</p>
     </div>
     <div class="home-links">
-      <router-link class="home-link" :to="{ name: 'watchlist' }">
-        <i class="material-icons md-48">playlist_play</i>
-        <span>Quero assistir</span>
+      <router-link
+        :key="i"
+        class="home-link"
+        :to="{ name: route.name }"
+        v-for="(route, i) in routes"
+      >
+        <i class="material-icons md-48">{{ route.meta.icon }}</i>
+        <span>{{ route.meta.label }}</span>
       </router-link>
+
       <a href="#" class="home-link">
         <i class="material-icons md-48">playlist_add_check</i>
         <span>Já assisti</span>
@@ -28,6 +34,11 @@ export default {
   name: "Home",
   computed: {
     ...mapState("auth", ["user"]),
+    routes() {
+      return this.$router.options.routes.filter((route) => {
+        return route.meta && route.meta.showNavbar;
+      });
+    },
   },
 };
 </script>
