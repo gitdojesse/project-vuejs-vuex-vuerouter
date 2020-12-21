@@ -1,7 +1,7 @@
 export default [
   {
-    path: "/serie/:id",
     name: "show-serie",
-    component: () => import("./ShowSerie.vue")
+    path: "/serie/:id",
+    component: () => import("./ShowSerie")
   }
 ];
