@@ -14,15 +14,6 @@
         <i class="material-icons md-48">{{ route.meta.icon }}</i>
         <span>{{ route.meta.label }}</span>
       </router-link>
-
-      <a href="#" class="home-link">
-        <i class="material-icons md-48">playlist_add_check</i>
-        <span>Já assisti</span>
-      </a>
-      <a href="#" class="home-link">
-        <i class="material-icons md-48">dvr</i>
-        <span>Todas as séries</span>
-      </a>
     </div>
   </div>
 </template>

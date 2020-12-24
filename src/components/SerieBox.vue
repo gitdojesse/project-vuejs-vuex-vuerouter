@@ -1,11 +1,31 @@
 <template>
   <router-link
+    class="card mb-4"
     :to="{ name: 'show-serie', params: { id: serie.id } }"
-    class="card"
   >
     <img height="200px" :src="serie.image" class="card-image-top" />
     <div class="card-body">
-      <h3 class="text-center mb-0">{{ serie.title }}</h3>
+      <h3 class="text-center mb-0">
+        {{ serie.title }}
+      </h3>
+      <div class="row text-center mt-3">
+        <div class="col">
+          <button
+            class="btn btn-sm btn-outline-primary"
+            @click="toggleWatchlist"
+          >
+            {{ serie.watchlist ? "Remover da" : "Adicionar na" }} watchlist
+          </button>
+        </div>
+        <div class="col">
+          <button
+            class="btn btn-sm btn-outline-warning"
+            @click="toggleWatchedlist"
+          >
+            {{ serie.watched ? "Remover da" : "Adicionar na" }} watchedlist
+          </button>
+        </div>
+      </div>
     </div>
   </router-link>
 </template>
@@ -17,6 +37,22 @@ export default {
     serie: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    toggleWatchlist() {
+      if (this.serie.watchlist) {
+        console.log("Remover da watchilist");
+      } else {
+        console.log("Adicionar da watchilist");
+      }
+    },
+    toggleWatchedlist() {
+      if (this.serie.watchlist) {
+        console.log("Remover da watchedilist");
+      } else {
+        console.log("Adicionar da watchedilist");
+      }
     },
   },
 };
