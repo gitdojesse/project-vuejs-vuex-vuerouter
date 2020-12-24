@@ -12,7 +12,7 @@
         <div class="col">
           <button
             class="btn btn-sm btn-outline-primary"
-            @click="toggleWatchlist"
+            @click.prevent="toggleWatchlist()"
           >
             {{ serie.watchlist ? "Remover da" : "Adicionar na" }} watchlist
           </button>
@@ -20,7 +20,7 @@
         <div class="col">
           <button
             class="btn btn-sm btn-outline-warning"
-            @click="toggleWatchedlist"
+            @click.prevent="toggleWatchedlist()"
           >
             {{ serie.watched ? "Remover da" : "Adicionar na" }} watchedlist
           </button>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "SerieBox",
   props: {
@@ -40,18 +42,52 @@ export default {
     },
   },
   methods: {
-    toggleWatchlist() {
-      if (this.serie.watchlist) {
-        console.log("Remover da watchilist");
-      } else {
-        console.log("Adicionar da watchilist");
+    ...mapActions("watchedlist", [
+      "ActionAddOnWatchedlist",
+      "ActionDeleteFromWatchedlist",
+      "ActionFindWatchedlist",
+    ]),
+    ...mapActions("watchlist", [
+      "ActionAddOnWatchlist",
+      "ActionDeleteFromWatchlist",
+      "ActionFindWatchlist",
+    ]),
+    async toggleWatchlist() {
+      try {
+        if (this.serie.watched) {
+          await this.ActionDeleteFromWatchedlist(this.serie.id);
+        }
+
+        if (this.serie.watchlist) {
+          await this.ActionDeleteFromWatchlist(this.serie.id);
+          window.alert("Removido com sucesso");
+        } else {
+          await this.ActionAddOnWatchlist({ serieId: this.serie.id });
+          window.alert("Adicionada com sucesso");
+        }
+        this.ActionFindWatchlist();
+      } catch (error) {
+        window.alert("Ocorreu algum erro");
+        console.error(error);
       }
     },
-    toggleWatchedlist() {
+    async toggleWatchedlist() {
       if (this.serie.watchlist) {
-        console.log("Remover da watchedilist");
-      } else {
-        console.log("Adicionar da watchedilist");
+        await this.ActionDeleteFromWatchlist(this.serie.id);
+      }
+
+      try {
+        if (this.serie.watched) {
+          await this.ActionDeleteFromWatchedlist(this.serie.id);
+          window.alert("Removido com sucesso");
+        } else {
+          await this.ActionAddOnWatchedlist({ serieId: this.serie.id });
+          window.alert("Adicionada com sucesso");
+        }
+        this.ActionFindWatchedlist();
+      } catch (error) {
+        window.alert("Ocorreu algum erro");
+        console.error(error);
       }
     },
   },
